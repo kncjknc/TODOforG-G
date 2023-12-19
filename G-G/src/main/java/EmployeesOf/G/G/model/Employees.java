@@ -8,7 +8,10 @@ import jakarta.persistence.*;
 public class Employees {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequence")
+    @SequenceGenerator(name="sequence"
+    ,sequenceName = "sequence2"
+    ,allocationSize = 1)
     private int employeeId;
     private String employeeName;
     private String employeeAge;

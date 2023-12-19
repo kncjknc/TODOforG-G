@@ -1,10 +1,7 @@
 package EmployeesOf.G.G.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="UsersTable")
@@ -12,6 +9,7 @@ public class Users {
 
     @Id
     private int id;
+    @Column(unique = true)
     private String userName;
     private String password;
     private String roles;
@@ -22,6 +20,13 @@ public class Users {
     public Users() {
     }
 
+    public Users(int id, String userName, String password, String roles, Employees employees) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.roles = roles;
+        this.employees = employees;
+    }
 
     public Users(int id, String userName, String password, String roles) {
         this.id = id;

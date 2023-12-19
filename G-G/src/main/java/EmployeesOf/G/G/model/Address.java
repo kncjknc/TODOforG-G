@@ -7,7 +7,10 @@ import jakarta.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequence3")
+    @SequenceGenerator(name="sequence3"
+            ,sequenceName = "sequence1"
+            ,allocationSize = 1)
     private int addressId;
     private String address1;
     private String address2;
