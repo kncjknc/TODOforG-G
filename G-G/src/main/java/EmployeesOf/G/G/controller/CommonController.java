@@ -2,6 +2,7 @@ package EmployeesOf.G.G.controller;
 
 import EmployeesOf.G.G.dto.AuthTokenclass;
 import EmployeesOf.G.G.dto.Token;
+import EmployeesOf.G.G.entityRepository.UserEntityRepository;
 import EmployeesOf.G.G.model.Department;
 import EmployeesOf.G.G.model.Employees;
 import EmployeesOf.G.G.model.Users;
@@ -10,7 +11,6 @@ import EmployeesOf.G.G.repository.EmployeesRepository;
 import EmployeesOf.G.G.repository.UsersRepository;
 import EmployeesOf.G.G.services.JwtService;
 import EmployeesOf.G.G.services.UserInfoService;
-import jakarta.annotation.security.RolesAllowed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class CommonController {
@@ -42,16 +44,33 @@ public class CommonController {
     @Autowired
     private UserInfoService userInfoService;
 
+    @Autowired
+    private UserEntityRepository userEntityRepository;
+
+    @GetMapping("/user/{id}")
+    public Users getId(@PathVariable int id){
+       return userEntityRepository.findByUserId(id);
+    }
+
+    @GetMapping("/getAll")
+    public List<Users> getAll(){
+       return userEntityRepository.findAll();
+    }
 
     @PostMapping("/addEmployee")
     public Employees addEmployee(@RequestBody Employees employees){
         return employeesRepository.save(employees);
     }
 
-    @RolesAllowed({"ROLE_HR,ROLE_ADMIN"})
     @PostMapping("/addDepartment")
     public Department addDepartment(@RequestBody Department department){
        return departmentRepository.save(department);
+    }
+
+    @GetMapping("/getUser/{id}")
+    public Users getUser(@PathVariable int id){
+        logger.info("getUser");
+        return usersRepository.findById(id).orElse(null);
     }
 
     @PostMapping("/addUser")

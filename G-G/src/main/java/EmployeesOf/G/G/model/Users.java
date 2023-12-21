@@ -14,6 +14,7 @@ public class Users {
     private String password;
     private String roles;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "users")
     private Employees employees;
 
