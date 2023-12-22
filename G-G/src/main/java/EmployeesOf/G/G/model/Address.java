@@ -1,5 +1,6 @@
 package EmployeesOf.G.G.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +18,7 @@ public class Address {
     private String postalCode;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Employees employees;
 
     public Address(int addressId, String address1, String address2, String postalCode, Employees employees) {

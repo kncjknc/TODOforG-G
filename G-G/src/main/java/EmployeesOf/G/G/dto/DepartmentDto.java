@@ -1,37 +1,28 @@
-package EmployeesOf.G.G.model;
+package EmployeesOf.G.G.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import EmployeesOf.G.G.model.Employees;
 
 import java.util.List;
 
-@Entity
-@Table(name = "DepartmentTable")
-public class Department {
+public class DepartmentDto {
 
-    @Id
     private int departmentId;
     private String departmentName;
-
     private String departmentManager;
 
-
-    @OneToMany(mappedBy = "department")
-    @JsonBackReference
     private List<Employees> employees;
 
-    public Department() {
+    public DepartmentDto() {
     }
 
-    public Department(int departmentId, String departmentName, String departmentManager, List<Employees> employees) {
+    public DepartmentDto(int departmentId, String departmentName, String departmentManager, List<Employees> employees) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.departmentManager = departmentManager;
         this.employees = employees;
     }
 
-    public Department(String departmentName, List<Employees> employees) {
+    public DepartmentDto(String departmentName, List<Employees> employees) {
         this.departmentName = departmentName;
         this.employees = employees;
     }

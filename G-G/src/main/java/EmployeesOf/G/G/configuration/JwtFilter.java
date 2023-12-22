@@ -28,15 +28,15 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtFilter extends OncePerRequestFilter {
 
     Logger logger = LoggerFactory.getLogger(JwtFilter.class);
+    private final JwtService jwtService;
+    private final UsersRepository usersRepository;
+    private final UserInfoService userInfoService;
 
-    @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private UsersRepository usersRepository;
-
-    @Autowired
-    private UserInfoService userInfoService;
+    public JwtFilter(JwtService jwtService, UsersRepository usersRepository, UserInfoService userInfoService) {
+        this.jwtService = jwtService;
+        this.usersRepository = usersRepository;
+        this.userInfoService = userInfoService;
+    }
 
     @Bean
     PasswordEncoder passwordEncoder() {

@@ -1,30 +1,22 @@
-package EmployeesOf.G.G.model;
+package EmployeesOf.G.G.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name="UsersTable")
-public class Users {
+import EmployeesOf.G.G.model.Employees;
 
-    @Id
+
+public class UsersDto {
+
     private int id;
-    @Column(unique = true)
     private String userName;
     private String password;
     private String roles;
 
-
-    @OneToOne(mappedBy = "users")
-    @JsonBackReference
     private Employees employees;
 
-    public Users() {
+    public UsersDto() {
     }
 
-    public Users(int id, String userName, String password, String roles, Employees employees) {
+    public UsersDto(int id, String userName, String password, String roles, Employees employees) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -32,7 +24,7 @@ public class Users {
         this.employees = employees;
     }
 
-    public Users(int id, String userName, String password, String roles) {
+    public UsersDto(int id, String userName, String password, String roles) {
         this.id = id;
         this.userName = userName;
         this.password = password;

@@ -1,48 +1,24 @@
-package EmployeesOf.G.G.model;
+package EmployeesOf.G.G.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name="EmployeeTable")
-public class Employees {
+import EmployeesOf.G.G.model.Address;
+import EmployeesOf.G.G.model.Department;
+import EmployeesOf.G.G.model.Users;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequence")
-    @SequenceGenerator(name="sequence"
-    ,sequenceName = "sequence2"
-    ,allocationSize = 1)
+public class EmployeesDto {
+
     private int employeeId;
     private String employeeName;
     private String employeeAge;
     private String employeeSalary;
-
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "department_id")
-    @JsonManagedReference
     private Department department;
-
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    @JsonManagedReference
     private Users users;
-
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id",referencedColumnName = "addressId")
-    @JsonManagedReference
     private Address address;
 
-
-    public Employees() {
+    public EmployeesDto() {
     }
 
-    public Employees(int employeeId, String employeeName, String employeeAge, String employeeSalary, Department department, Users users, Address address) {
+    public EmployeesDto(int employeeId, String employeeName, String employeeAge, String employeeSalary, Department department, Users users, Address address) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeAge = employeeAge;
@@ -51,8 +27,6 @@ public class Employees {
         this.users = users;
         this.address = address;
     }
-
-
 
     public Address getAddress() {
         return address;
@@ -106,8 +80,6 @@ public class Employees {
     public Department getDepartment() {
         return department;
     }
-
-
     public Users getUsers() {
         return users;
     }
