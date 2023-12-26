@@ -93,7 +93,7 @@ class ApplicationTests {
 
 	@Test
 	void updateDepartment(){
-		DepartmentDto department = new DepartmentDto(1,"Devops","Kishore");
+		DepartmentDto department = new DepartmentDto(1,"IT","Kishore");
 		testRestTemplate.put("/department/1",department);
 		logger.info("Department Updated");
 	}
