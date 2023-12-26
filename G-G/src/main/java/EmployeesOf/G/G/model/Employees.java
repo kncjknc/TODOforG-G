@@ -28,7 +28,6 @@ public class Employees {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
     private Users users;
 
 

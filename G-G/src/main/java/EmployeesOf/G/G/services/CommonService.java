@@ -1,16 +1,20 @@
 package EmployeesOf.G.G.services;
 
+import EmployeesOf.G.G.dto.DepartmentDto;
 import EmployeesOf.G.G.dto.DepartmentEmployeeCount;
 import EmployeesOf.G.G.dto.EmployeesDto;
 import EmployeesOf.G.G.dto.UsersDto;
 import EmployeesOf.G.G.entityRepository.DepartmentEntityRepository;
 import EmployeesOf.G.G.entityRepository.EmployeesEntityRepository;
 import EmployeesOf.G.G.entityRepository.UserEntityRepository;
+import EmployeesOf.G.G.exceptions.DepartmentNotFound;
+import EmployeesOf.G.G.model.Department;
 import EmployeesOf.G.G.model.Employees;
 import EmployeesOf.G.G.model.Users;
 import EmployeesOf.G.G.repository.UsersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommonService {
-
 
     @Autowired
     private  UserEntityRepository userEntityRepository;
@@ -44,6 +47,7 @@ public class CommonService {
         List<Users> user = userEntityRepository.findAll();
       return user.stream().map(users->modelMapper.map(user,UsersDto.class)).collect(Collectors.toList());
     }
+
     public UsersDto findById(int id) {
         Users user = usersRepository.findById(id).orElse(null);
        return modelMapper.map(user,UsersDto.class);
@@ -69,4 +73,34 @@ public class CommonService {
     }
 
 
+    public UsersDto updateUser(int id, UsersDto usersDto) {
+        Users users = usersRepository.findById(id).orElse(null);
+        if(users!=null){
+            // Users user = modelMapper.map(usersDto,Users.class);
+            users.setUserName(usersDto.getUserName());
+            users.setPassword(usersDto.getPassword());
+            users.setRoles(usersDto.getRoles());
+           usersRepository.save(users);
+           return usersDto;
+        }
+        else{
+            throw new UsernameNotFoundException("The User Id"+usersDto.getId()+" not found");
+        }
+
+
+    }
+
+    public DepartmentDto updateDepartment(int id, DepartmentDto departmentDto) {
+
+        Department dep1 = departmentEntityRepository.findById(id);
+        if(dep1!=null){
+            Department dep2 = modelMapper.map(departmentDto,Department.class);
+            departmentEntityRepository.updateDepartment(dep2);
+            return departmentDto;
+        }
+        else{
+            throw new DepartmentNotFound(departmentDto.getDepartmentName());
+        }
+
+    }
 }

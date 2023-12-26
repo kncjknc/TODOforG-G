@@ -45,6 +45,11 @@ public class CommonController {
        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
+    @PutMapping("/department/{id}")
+    public DepartmentDto updateUser(@PathVariable int id, @RequestBody DepartmentDto departmentDto){
+       return commonService.updateDepartment(id, departmentDto);
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteUserById(@PathVariable int id){
         return commonService.delete(id);

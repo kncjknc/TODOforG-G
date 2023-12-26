@@ -22,6 +22,12 @@ public class DepartmentDto {
         this.employees = employees;
     }
 
+    public DepartmentDto(int departmentId, String departmentName, String departmentManager) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.departmentManager = departmentManager;
+    }
+
     public DepartmentDto(String departmentName, List<Employees> employees) {
         this.departmentName = departmentName;
         this.employees = employees;
@@ -51,7 +57,6 @@ public class DepartmentDto {
     public String getDepartmentName() {
         return departmentName;
     }
-
 
     public String getDepartmentManager() {
         return departmentManager;

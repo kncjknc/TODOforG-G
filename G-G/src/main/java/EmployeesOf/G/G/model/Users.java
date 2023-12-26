@@ -18,7 +18,6 @@ public class Users {
 
 
     @OneToOne(mappedBy = "users")
-    @JsonBackReference
     private Employees employees;
 
     public Users() {

@@ -45,12 +45,12 @@ public class SecurityConfigure {
 
         http.csrf((c->c.disable()))
                 .authorizeHttpRequests((requests -> requests
-                .requestMatchers("/abc", "/addUser", "/getUser/{id}","/getEmployee/{id}").authenticated()
+                .requestMatchers("/abc", "/addUser", "/getUser/{id}").authenticated()
                 .requestMatchers("/addEmployee"
                         , "/loginUsers","/getGreaterSalary/{salary}"
                         ,"/getAll", "/getUser/{name}"
                         ,"/getAllDepartmentAces"
-                        ,"/getEmployeesCount","/user/{id}").permitAll()
+                        ,"/getEmployeesCount","/user/{id}","/getEmployee/{id}","/department/{id}").permitAll()
                 )).sessionManagement((s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)));
         http.authenticationProvider(authenticationProvider()).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.httpBasic();

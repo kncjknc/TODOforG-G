@@ -24,11 +24,11 @@ public class Department {
     public Department() {
     }
 
-    public Department(int departmentId, String departmentName, String departmentManager, List<Employees> employees) {
+    public Department(int departmentId, String departmentName, String departmentManager) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.departmentManager = departmentManager;
-        this.employees = employees;
+
     }
 
     public Department(String departmentName, List<Employees> employees) {

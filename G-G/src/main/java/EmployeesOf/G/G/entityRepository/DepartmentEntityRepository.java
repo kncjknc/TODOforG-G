@@ -28,5 +28,14 @@ public class DepartmentEntityRepository {
         return query.getResultList();
     }
 
+    public Department updateDepartment(Department department){
+       return entityManager.merge(department);
+    }
+
+    public Department findById(int id){
+       return entityManager.find(Department.class,1);
+    }
+
+
 
 }
