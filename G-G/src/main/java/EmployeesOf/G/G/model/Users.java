@@ -16,7 +16,7 @@ public class Users {
     private String password;
     private String roles;
 
-
+    @JsonIgnore
     @OneToOne(mappedBy = "users")
     private Employees employees;
 
@@ -36,6 +36,16 @@ public class Users {
         this.userName = userName;
         this.password = password;
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", roles='" + roles + '\'' +
+                '}';
     }
 
     public void setId(int id) {

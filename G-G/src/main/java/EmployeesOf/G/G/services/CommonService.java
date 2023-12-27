@@ -94,13 +94,19 @@ public class CommonService {
 
         Department dep1 = departmentEntityRepository.findById(id);
         if(dep1!=null){
-            Department dep2 = modelMapper.map(departmentDto,Department.class);
-            departmentEntityRepository.updateDepartment(dep2);
+            dep1.setDepartmentName(departmentDto.getDepartmentName());
+            dep1.setDepartmentManager(departmentDto.getDepartmentManager());
+            departmentEntityRepository.updateDepartment(dep1);
             return departmentDto;
         }
         else{
             throw new DepartmentNotFound(departmentDto.getDepartmentName());
         }
 
+    }
+
+    public DepartmentDto getDepartmentById(Integer id) {
+        Department department = departmentEntityRepository.getDepartmentById(id);
+       return modelMapper.map(department,DepartmentDto.class);
     }
 }

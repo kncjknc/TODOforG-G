@@ -8,10 +8,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 @SpringBootApplication
 public class Application {
 
-	@Bean
-	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		return new MappingJackson2HttpMessageConverter();
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

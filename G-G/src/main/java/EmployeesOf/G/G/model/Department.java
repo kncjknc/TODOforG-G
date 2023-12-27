@@ -1,6 +1,7 @@
 package EmployeesOf.G.G.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -17,8 +18,8 @@ public class Department {
     private String departmentManager;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department")
-    @JsonBackReference
     private List<Employees> employees;
 
     public Department() {

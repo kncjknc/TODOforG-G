@@ -37,5 +37,7 @@ public class DepartmentEntityRepository {
     }
 
 
-
+    public Department getDepartmentById(Integer id) {
+       return entityManager.find(Department.class,id);
+    }
 }

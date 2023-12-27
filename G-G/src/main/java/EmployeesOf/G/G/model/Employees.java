@@ -19,22 +19,22 @@ public class Employees {
     private String employeeSalary;
 
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")
-    @JsonManagedReference
     private Department department;
 
 
-
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Users users;
 
 
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "addressId")
-    @JsonManagedReference
     private Address address;
 
 

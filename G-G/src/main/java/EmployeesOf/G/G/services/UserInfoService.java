@@ -34,12 +34,12 @@ public class UserInfoService implements UserDetailsService {
 
     }
 
-    public String addUsers(Users user) {
+    public Users addUsers(Users user) {
         Users exist = userRepository.findByUserName(user.getUserName()).orElse(null);
         if(exist==null){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-            return "New User Added SuccessFully!";
+            return  userRepository.save(user);
+
         }else {
             throw new UsernameNotFoundException(user.getUserName());
         }

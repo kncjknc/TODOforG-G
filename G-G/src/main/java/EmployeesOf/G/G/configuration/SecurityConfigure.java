@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableWebSecurity
@@ -45,12 +46,12 @@ public class SecurityConfigure {
 
         http.csrf((c->c.disable()))
                 .authorizeHttpRequests((requests -> requests
-                .requestMatchers("/abc", "/addUser", "/getUser/{id}").authenticated()
+                .requestMatchers("/abc","/getEmployeesCount").authenticated()
                 .requestMatchers("/addEmployee"
                         , "/loginUsers","/getGreaterSalary/{salary}"
                         ,"/getAll", "/getUser/{name}"
                         ,"/getAllDepartmentAces"
-                        ,"/getEmployeesCount","/user/{id}","/getEmployee/{id}","/department/{id}").permitAll()
+                        ,"/user/{id}","/getDepartment/{id}", "/addUser","/department/{id}").permitAll()
                 )).sessionManagement((s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)));
         http.authenticationProvider(authenticationProvider()).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.httpBasic();
@@ -73,6 +74,11 @@ public class SecurityConfigure {
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 
 }

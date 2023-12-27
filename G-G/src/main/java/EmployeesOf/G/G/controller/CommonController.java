@@ -62,7 +62,7 @@ public class CommonController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(@RequestBody Users users){
+    public Users addUser(@RequestBody Users users){
         return  userInfoService.addUsers(users);
     }
 
@@ -76,6 +76,12 @@ public class CommonController {
         logger.info("employees method");
         EmployeesDto employeesDto= commonService.getEmployeeAllDetail(id);
         return new ResponseEntity<>(employeesDto, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getDepartment/{id}")
+    public DepartmentDto getDepartment(@PathVariable Integer id){
+        return commonService.getDepartmentById(id);
     }
 
     @GetMapping("/getEmployeesCount")
