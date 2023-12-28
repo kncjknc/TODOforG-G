@@ -51,7 +51,9 @@ public class SecurityConfigure {
                         , "/loginUsers","/getGreaterSalary/{salary}"
                         ,"/getAll", "/getUser/{name}"
                         ,"/getAllDepartmentAces"
-                        ,"/user/{id}","/getDepartment/{id}", "/addUser","/department/{id}").permitAll()
+                        ,"/delete/{id}","/updateUser"
+                        ,"/user/{id}","/getDepartment/{id}"
+                        , "/addUser","/department/{id}","/delete/{id}","/getHistory/{id}").permitAll()
                 )).sessionManagement((s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)));
         http.authenticationProvider(authenticationProvider()).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.httpBasic();

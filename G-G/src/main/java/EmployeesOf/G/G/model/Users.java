@@ -4,19 +4,27 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @Table(name="UsersTable")
+@Audited(withModifiedFlag = true)
+@AuditTable(value = "USERS_AUDIT")
 public class Users {
 
     @Id
     private int id;
     @Column(unique = true)
     private String userName;
+
+    @NotAudited
     private String password;
     private String roles;
 
     @JsonIgnore
+    @NotAudited
     @OneToOne(mappedBy = "users")
     private Employees employees;
 

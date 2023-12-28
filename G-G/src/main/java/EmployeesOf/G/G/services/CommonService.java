@@ -8,10 +8,16 @@ import EmployeesOf.G.G.entityRepository.DepartmentEntityRepository;
 import EmployeesOf.G.G.entityRepository.EmployeesEntityRepository;
 import EmployeesOf.G.G.entityRepository.UserEntityRepository;
 import EmployeesOf.G.G.exceptions.DepartmentNotFound;
+import EmployeesOf.G.G.model.CustomRevisionEntity;
 import EmployeesOf.G.G.model.Department;
 import EmployeesOf.G.G.model.Employees;
 import EmployeesOf.G.G.model.Users;
 import EmployeesOf.G.G.repository.UsersRepository;
+import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
+import org.hibernate.envers.query.AuditQuery;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +28,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommonService {
+
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Autowired
     private  UserEntityRepository userEntityRepository;
@@ -73,21 +82,10 @@ public class CommonService {
     }
 
 
-    public UsersDto updateUser(int id, UsersDto usersDto) {
-        Users users = usersRepository.findById(id).orElse(null);
-        if(users!=null){
-            // Users user = modelMapper.map(usersDto,Users.class);
-            users.setUserName(usersDto.getUserName());
-            users.setPassword(usersDto.getPassword());
-            users.setRoles(usersDto.getRoles());
-           usersRepository.save(users);
-           return usersDto;
-        }
-        else{
-            throw new UsernameNotFoundException("The User Id"+usersDto.getId()+" not found");
-        }
-
-
+    public UsersDto updateUser(UsersDto usersDto) {
+       Users users = modelMapper.map(usersDto, Users.class);
+        Users user = userEntityRepository.update(users);
+       return modelMapper.map(user,UsersDto.class);
     }
 
     public DepartmentDto updateDepartment(int id, DepartmentDto departmentDto) {
@@ -108,5 +106,13 @@ public class CommonService {
     public DepartmentDto getDepartmentById(Integer id) {
         Department department = departmentEntityRepository.getDepartmentById(id);
        return modelMapper.map(department,DepartmentDto.class);
+    }
+
+
+    public List getHistory(int id){
+        AuditReader auditReader = AuditReaderFactory.get(entityManagerFactory.createEntityManager());
+        AuditQuery auditQuery = auditReader.createQuery().forRevisionsOfEntity(Users.class,true,true)
+                .add(AuditEntity.property("id").eq(id));
+        return auditQuery.getResultList();
     }
 }

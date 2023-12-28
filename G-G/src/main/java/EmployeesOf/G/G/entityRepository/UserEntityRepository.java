@@ -6,6 +6,8 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
@@ -13,6 +15,9 @@ import java.util.List;
 public class UserEntityRepository {
 
     private final EntityManager entityManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
@@ -37,7 +42,12 @@ public class UserEntityRepository {
 
     @Transactional
     public Users update(Users users){
-        return entityManager.merge(users);
+        Users user = entityManager.find(Users.class,users.getId());
+        if(user!=null){
+            entityManager.merge(users);
+            return users;
+        }
+       throw new UsernameNotFoundException("The User not exist in database "+ users.getUserName());
     }
 
     @Transactional
@@ -45,6 +55,13 @@ public class UserEntityRepository {
         Users user = entityManager.find(Users.class,id);
         entityManager.remove(user);
         return "Delete "+id+" Records";
+    }
+
+    @Transactional
+    public Users addUsers(Users user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        entityManager.persist(user);
+        return user;
     }
 
 }

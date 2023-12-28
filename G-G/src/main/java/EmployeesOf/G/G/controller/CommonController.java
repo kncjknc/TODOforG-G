@@ -45,12 +45,17 @@ public class CommonController {
        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
+    @PutMapping("/updateUser")
+    public UsersDto updateUser(@RequestBody UsersDto usersDto){
+        return commonService.updateUser(usersDto);
+    }
+
     @PutMapping("/department/{id}")
-    public DepartmentDto updateUser(@PathVariable int id, @RequestBody DepartmentDto departmentDto){
+    public DepartmentDto updateDepartment(@PathVariable int id, @RequestBody DepartmentDto departmentDto){
        return commonService.updateDepartment(id, departmentDto);
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteUserById(@PathVariable int id){
         return commonService.delete(id);
     }
@@ -63,7 +68,7 @@ public class CommonController {
 
     @PostMapping("/addUser")
     public Users addUser(@RequestBody Users users){
-        return  userInfoService.addUsers(users);
+        return  userEntityRepository.addUsers(users);
     }
 
     @GetMapping("/getAll")
@@ -76,8 +81,9 @@ public class CommonController {
         logger.info("employees method");
         EmployeesDto employeesDto= commonService.getEmployeeAllDetail(id);
         return new ResponseEntity<>(employeesDto, HttpStatus.OK);
-
     }
+
+
 
     @GetMapping("/getDepartment/{id}")
     public DepartmentDto getDepartment(@PathVariable Integer id){
@@ -99,6 +105,10 @@ public class CommonController {
        return commonService.getAllDepartmentAscending();
     }
 
+    @GetMapping("/getHistory/{id}")
+    public List getList(@PathVariable int id){
+        return commonService.getHistory(id);
+    }
     @PostMapping("/loginUsers")
     public Token authenticationTicket(@RequestBody AuthTokenclass authRequest) {
         try {
