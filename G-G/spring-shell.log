@@ -19,3 +19,10 @@
 1703677550750:addUser 12 "Sri" "Sri" "HR"
 1703677687404:getDepartment 1
 1703678326761:getUser 1
+1703731361664:addBulkUsers G-G/src/main/resources/users.json
+1703731410526:addBulkUsers ./src/main/resources/users.json
+1703731435803:addBulkUsers "/src/main/resources/users.json"
+1703731632469:addBulkUsers addBulkUsers "\\"./src/main/resources/users.json\\""
+1703731694469:addBulkUsers "\\"./src/main/resources/users.json\\""
+1703731760761:addBulkUsers C:/Users/varat/Documents/JavaCodes/G&G/G-G/src/main/resources/users.json
+1703732774462:addBulkUsers ./src/main/resources/users.json

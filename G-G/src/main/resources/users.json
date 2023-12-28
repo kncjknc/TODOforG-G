@@ -1,0 +1,38 @@
+[
+  {
+    "id": 18,
+    "userName": "ajay",
+    "password": "password123",
+    "roles": "USER"
+  },
+  {
+    "id": 17,
+    "userName": "aarthi",
+    "password": "pass456",
+    "roles": "ADMIN"
+  },
+  {
+    "id": 19,
+    "userName": "swetha",
+    "password": "secret",
+    "roles": "USER"
+  },
+  {
+    "id": 20,
+    "userName": "girisha",
+    "password": "secret",
+    "roles": "USER"
+  },
+  {
+    "id": 14,
+    "userName": "satheesh",
+    "password": "secret",
+    "roles": "USER"
+  },
+  {
+    "id": 21,
+    "userName": "rajesh",
+    "password": "secret",
+    "roles": "USER"
+  }
+]
