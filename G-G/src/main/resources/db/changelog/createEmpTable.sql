@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS EMPLOYEES_3(
+id INT PRIMARY KEY AUTO_INCREMENT,
+employeeName VARCHAR(255),
+age INT,
+salary INT,
+testing_id int,
+FOREIGN KEY (testing_id) REFERENCES Testing(id));

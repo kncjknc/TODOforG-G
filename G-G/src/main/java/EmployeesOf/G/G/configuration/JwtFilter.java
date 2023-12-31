@@ -32,6 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final UsersRepository usersRepository;
     private final UserInfoService userInfoService;
 
+    @Autowired
     public JwtFilter(JwtService jwtService, UsersRepository usersRepository, UserInfoService userInfoService) {
         this.jwtService = jwtService;
         this.usersRepository = usersRepository;

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      - file: db/changelog/changelog.yaml
+  - include:
+      - file: db/changelog/createTestingTable.sql
+  - include:
+      - file: db/changelog/insertTableTesting.sql
+  - include:
+      - file: db/changelog/createEmpTable.sql
+  - include:
+      - file: db/changelog/updateTesting.sql
+  - include:
+      - file: db/changelog/insertEmpValue.sql
+
+
